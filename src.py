@@ -64,22 +64,29 @@ class convert:
 
 class padding:
     @staticmethod
-    def padwith(array1, padder, amount):
+    def pad_with(array1, padder, amount):
         temp = [padder for _ in range(amount)]
         array1 = np.append(array1, temp)
         return array1
 
     @staticmethod
-    def padtomultipleof(array1, padder, amount):
+    def pad_to_blocksize(array1, padder, amount):
         topad = amount - (len(array1) % amount)
         temp = [padder for _ in range(topad)]
+        array1 = np.append(array1, temp)
+        return array1
+
+    @staticmethod
+    def pad_to_blocksize_PKCS(array1, amount):
+        topad = amount - (len(array1) % amount)
+        temp = [topad for _ in range(topad)]
         array1 = np.append(array1, temp)
         return array1
 
 
 class process:
     @staticmethod
-    def XOR_arrays(array1, array2):
+    def XOR_array(array1, array2):
         if len(array1) == len(array2):
             return [x ^ y for x, y in zip(array1, array2)]
         else:
@@ -91,3 +98,13 @@ class process:
             return np.roll(array1, -amount)
         elif direction == "r":
             return np.roll(array1, amount)
+
+    @staticmethod
+    def s_box(array1, sbox):
+        for temp in range(len(array1)):
+            array1[temp] = sbox[array1[temp]]
+        return array1
+
+    @staticmethod
+    def p_box(array1, pbox):
+        pass
