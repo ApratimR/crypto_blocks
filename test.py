@@ -6,6 +6,6 @@ import src as sc
 
 # print(sc.convert._char_array)
 
-thearray = [0, 2, 1]
-sbox = [1, 1, 0]
-print(sc.process.s_box(thearray, sbox))
+thearray = [1, 2, 3]
+pbox = [2, 0, 1]
+print(sc.process.p_box(thearray, pbox))

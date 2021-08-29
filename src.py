@@ -107,4 +107,7 @@ class process:
 
     @staticmethod
     def p_box(array1, pbox):
-        pass
+        array2 = [0 for _ in range(len(pbox))]
+        for temp in range(len(array1)):
+            array2[pbox[temp]] = array1[temp]
+        return array2
