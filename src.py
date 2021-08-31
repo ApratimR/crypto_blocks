@@ -1,9 +1,14 @@
 import numpy as np
+import secrets
+import string
 import base64
+
+_char_array = string.ascii_uppercase + string.ascii_lowercase + string.digits + "-_"
 
 
 class convert:
-    _char_array = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
+    # _char_array = string.ascii_uppercase + string.ascii_lowercase + string.digits + "-_"
+    # = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
 
     @staticmethod
     def string_to_b64(string1):
@@ -47,7 +52,7 @@ class convert:
         string1 = convert.string_to_b64(string1)
         array1 = np.zeros((len(string1)), dtype=np.uint8)
         for temp in range(len(string1)):
-            array1[temp] = convert._char_array.index(string1[temp])
+            array1[temp] = _char_array.index(string1[temp])
         return array1
 
     @staticmethod
@@ -57,7 +62,7 @@ class convert:
         """
         string1 = ""
         for temp in array1:
-            string1 += convert._char_array[temp]
+            string1 += _char_array[temp]
         string1 = convert.b64_to_string(string1)
         return string1
 
@@ -117,9 +122,12 @@ class genrate:
     @staticmethod
     def box_generate(size):
         array = np.arange(size, dtype=np.uint8)
-        np.random.shuffle(array)
+        for temp in range(size):
+            thern = secrets.randbelow(size)
+            array[temp], array[thern] = array[thern], array[temp]
         return array
 
     @staticmethod
     def string_generate(size):
-        pass
+        string = "".join(secrets.choice(_char_array) for _ in range(size))
+        return string
