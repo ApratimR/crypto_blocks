@@ -111,3 +111,15 @@ class process:
         for temp in range(len(array1)):
             array2[pbox[temp]] = array1[temp]
         return array2
+
+
+class genrate:
+    @staticmethod
+    def box_generate(size):
+        array = np.arange(size, dtype=np.uint8)
+        np.random.shuffle(array)
+        return array
+
+    @staticmethod
+    def string_generate(size):
+        pass

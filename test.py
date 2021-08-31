@@ -6,6 +6,5 @@ import src as sc
 
 # print(sc.convert._char_array)
 
-thearray = [1, 2, 3]
-pbox = [2, 0, 1]
-print(sc.process.p_box(thearray, pbox))
+
+print(sc.genrate.box_generate(10))
