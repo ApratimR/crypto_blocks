@@ -78,6 +78,11 @@ class padding:
         return array1
 
     @staticmethod
+    def pad_with_DEL(array1, padder, amount):
+        # NOTE : add padding delete option
+        pass
+
+    @staticmethod
     def pad_to_blocksize(array1, padder, amount):
         """
         (array1) is appended with (padder) until its lenght is multiple of (amount)
@@ -110,6 +115,16 @@ class process:
             raise Exception("Invalid lengths of array entered")
 
     @staticmethod
+    def ADD_array(array1, array2):
+        """
+        performs ADD between (array1,array2) of same lengh with (mod 64)
+        """
+        if len(array1) == len(array2):
+            return (array1 + array2) % 64
+        else:
+            raise Exception("Invalid lengths of array entered")
+
+    @staticmethod
     def shift(array1, amount, direction):
         """
         performs shift operation on (array1) in "l" or "r" (direction) by (amount)
@@ -138,6 +153,14 @@ class process:
             array2[pbox[temp]] = array1[temp]
         return array2
 
+    @staticmethod
+    def swap(array1):
+        if len(array1) % 2 == 0:
+            length = len(array1)
+            return array1[length // 2 :] + array1[: length // 2]
+        else:
+            raise Exception("Invalud size of array for swaping entered")
+
 
 class genrate:
     @staticmethod
@@ -158,3 +181,11 @@ class genrate:
         """
         string = "".join(secrets.choice(_char_array) for _ in range(size))
         return string
+
+    @staticmethod
+    def array_generate(size):
+        """
+        generates a numpy array of lenght (size) with value between {0,63}
+        """
+        array = [secrets.randbelow(63) for _ in range(size)]
+        return array
