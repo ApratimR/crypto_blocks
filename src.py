@@ -70,12 +70,18 @@ class convert:
 class padding:
     @staticmethod
     def pad_with(array1, padder, amount):
+        """
+        appeds a array of lenght (amount) filled with (padder) to (array1)
+        """
         temp = [padder for _ in range(amount)]
         array1 = np.append(array1, temp)
         return array1
 
     @staticmethod
     def pad_to_blocksize(array1, padder, amount):
+        """
+        (array1) is appended with (padder) until its lenght is multiple of (amount)
+        """
         topad = amount - (len(array1) % amount)
         temp = [padder for _ in range(topad)]
         array1 = np.append(array1, temp)
@@ -83,6 +89,9 @@ class padding:
 
     @staticmethod
     def pad_to_blocksize_PKCS(array1, amount):
+        """
+        (array1) is appended with (padder) until its lenght is multiple of (amount)
+        """
         topad = amount - (len(array1) % amount)
         temp = [topad for _ in range(topad)]
         array1 = np.append(array1, temp)
@@ -92,6 +101,9 @@ class padding:
 class process:
     @staticmethod
     def XOR_array(array1, array2):
+        """
+        performs XOR between (array1,array2) of same lengh
+        """
         if len(array1) == len(array2):
             return [x ^ y for x, y in zip(array1, array2)]
         else:
@@ -99,6 +111,9 @@ class process:
 
     @staticmethod
     def shift(array1, amount, direction):
+        """
+        performs shift operation on (array1) in "l" or "r" (direction) by (amount)
+        """
         if direction == "l":
             return np.roll(array1, -amount)
         elif direction == "r":
@@ -106,12 +121,18 @@ class process:
 
     @staticmethod
     def s_box(array1, sbox):
+        """
+        performs substititution on (array1) with reference from (sbox)
+        """
         for temp in range(len(array1)):
             array1[temp] = sbox[array1[temp]]
         return array1
 
     @staticmethod
     def p_box(array1, pbox):
+        """
+        performs permutation on (array1) with reference from (sbox)
+        """
         array2 = [0 for _ in range(len(pbox))]
         for temp in range(len(array1)):
             array2[pbox[temp]] = array1[temp]
@@ -121,6 +142,9 @@ class process:
 class genrate:
     @staticmethod
     def box_generate(size):
+        """
+        generates an array of lenght (size) with elements from {0,size-1} in random order
+        """
         array = np.arange(size, dtype=np.uint8)
         for temp in range(size):
             thern = secrets.randbelow(size)
@@ -129,5 +153,8 @@ class genrate:
 
     @staticmethod
     def string_generate(size):
+        """
+        generates a string of lenght (size) with random base64 characters
+        """
         string = "".join(secrets.choice(_char_array) for _ in range(size))
         return string
