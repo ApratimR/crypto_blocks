@@ -10,13 +10,13 @@ class convert:
     @staticmethod
     def string_to_b64(string1):
         """
-        converts any string to URL-Safe Base64 string.
+        converts input string to URL-Safe Base64 encoded string.
 
         Args:
-            string1:(str)
+            string1:(str) enter string that needs to be encoded in b64
 
         Returns:
-            (str) encoded in b64format without padding.
+            (str): string encoded in b64format without padding.
 
         Raises:
             TypeError: Invalid data type entered.
@@ -33,13 +33,13 @@ class convert:
     @staticmethod
     def b64_to_string(string1):
         """
-        converts only Base64 encoded string back to UTF-8 string.
+        converts only Base64 encoded string back UTF-8 encoded string.
 
         Args:
-            string1:(str) encoded in b64format.
+            string1:(str)string encoded in b64format.
 
         Returns:
-            (str)
+            (str): string encoded in UTF-8
 
         Raises:
             TypeError: Invalid data type entered.
@@ -66,10 +66,10 @@ class convert:
         converts base64 string to int array with value range 0-63
 
         Args:
-            string1:(str) encoded in b64format.
+            string1:(str)string encoded in b64format.
 
         Returns:
-            (numpy.array[uint8])
+            (numpy.array[uint8]): array with its element value range in {0,63}.(B64 encoded)
         """
         string1 = convert.string_to_b64(string1)
         array1 = np.zeros((len(string1)), dtype=np.uint8)
@@ -83,10 +83,10 @@ class convert:
         converts int array with value range 0-63 back to UTF-8 string
 
         Args:
-            array1:(numpy.array[uint8]) encoded in b64format.
+            array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
 
         Returns:
-            (str) in original format
+            (str): base64 encoded string without padding
         """
         string1 = ""
         for temp in array1:
@@ -102,11 +102,11 @@ class padding:
         padd's the array in PKCS standard to lenght specified by user
 
         Args:
-            array1:(numpy.array[uint8]) encoded in b64format.
+            array1:(numpy.array[uint8])array with element value range in {0,63}.(B64 encoded)
             amount:(int) the block size
 
         Returns:
-            array1:(numpy.array[uint8])
+            (numpy.array[uint8]): array with PKCS style padding
 
         """
         topad = amount - (len(array1) % amount)
@@ -120,10 +120,10 @@ class padding:
         removes the padding from the array
 
         Args:
-            array1:(numpy.array[uint8]) encoded in b64format.
+            array1:(numpy.array[uint8])the padded array of which the padding is to be removed
 
         Returns:
-            array1:(numpy.array[uint8])
+            (numpy.array[uint8]): array without the padding
         """
         to_trim = array1[-1]
         array1 = array1[:-to_trim]
@@ -137,11 +137,11 @@ class process:
         performs XOR between two arrays of same lengh
 
         Args:
-            array1:(numpy.array[uint8]) encoded in b64format.
-            array2:(numpy.array[uint8]) encoded in b64format.
+            array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
+            array2:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
 
         Returns:
-            array1:(numpy.array[uint8])
+            (numpy.array[uint8]): array with element value range in {0,63}.(B64 encoded)
 
         Raises:
             Error: Invalid lengths of array entered.
@@ -157,11 +157,11 @@ class process:
         performs ADD between (array1,array2) of same lengh with (mod 64)
 
         Args:
-            array1:(numpy.array[uint8]) encoded in b64format.
-            array2:(numpy.array[uint8]) encoded in b64format.
+            array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
+            array2:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
 
         Returns:
-            array1:(numpy.array[uint8])
+            (numpy.array[uint8]): array with element value range in {0,63}.(B64 encoded)
 
         Raises:
             Error: Invalid lengths of array entered.
@@ -177,14 +177,14 @@ class process:
         performs shift operation on array in left or right direction by specified amount
 
         Args:
-            array1:(numpy.array[uint8]) encoded in b64format.
+            array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
             amount:(int) the shift amount
             direction:(str):
                 - "l" for left shift
                 - "r" for right shift
 
         Returns:
-            array1:(numpy.array[uint8])
+            (numpy.array[uint8]): array with its element shifted
         """
         if direction == "l":
             return np.roll(array1, -amount)
@@ -194,14 +194,14 @@ class process:
     @staticmethod
     def s_box(array1, sbox):
         """
-        performs substititution on the array1 with reference from sbox array
+        performs substititution on the array with reference from sbox array
 
         Args:
-            array1:(numpy.array[uint8]) encoded in b64format.
-            sbox:(numpy.array[uint8]) encoded in b64format.
+            array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
+            sbox:(numpy.array[uint8]) array with all unique values between {0,sbox.size-1} in random order
 
         Returns:
-            array1:(numpy.array[uint8])
+            (numpy.array[uint8]): array with substituted values as per sbox
         """
         for temp in range(len(array1)):
             array1[temp] = sbox[array1[temp]]
@@ -210,14 +210,14 @@ class process:
     @staticmethod
     def p_box(array1, pbox):
         """
-        performs permutation on (array1) with reference from (sbox)
+        performs permutation on the array with reference from pbox array
 
         Args:
-            array1:(numpy.array[uint8]) encoded in b64format.
-            pbox:(numpy.array[uint8]) encoded in b64format.
+            array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
+            pbox:(numpy.array[uint8]) array with all unique values between {0,sbox.size-1} in random order
 
         Returns:
-            array1:(numpy.array[uint8])
+            (numpy.array[uint8]): array with permuted values as per pbox
         """
         array2 = [0 for _ in range(len(pbox))]
         for temp in range(len(array1)):
@@ -230,10 +230,10 @@ class process:
         swaps the two half in the array
 
         Args:
-            array1:(numpy.array[uint8]) encoded in b64format.
+            array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
 
         Returns:
-            array1:(numpy.array[uint8])
+            array1:(numpy.array[uint8]) array with the two halves of it swaped
 
         Raises:
             Error: Invalud size of array for swaping entered.
@@ -255,7 +255,7 @@ class genrate:
             size:(int) the size of box required.
 
         Returns:
-            array1:(numpy.array[uint8])
+            (numpy.array[uint8]): array with all unique values in range {0,size-1} in random arrangement
 
         Note:
             used for generating s_box or p_box arrays
@@ -275,7 +275,7 @@ class genrate:
             size:(int) the size of box required.
 
         Returns:
-            array1:(numpy.array[uint8])
+            (str): string with random characters from B64 character list
         """
         string = "".join(secrets.choice(_char_array) for _ in range(size))
         return string
@@ -289,7 +289,7 @@ class genrate:
             size:(int) the size of box required.
 
         Returns:
-            array1:(numpy.array[uint8])
+            (numpy.array[uint8]) array with random elements with value in range {0,63}
         """
         array = [secrets.randbelow(63) for _ in range(size)]
         return array
