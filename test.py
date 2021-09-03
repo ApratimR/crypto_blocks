@@ -7,5 +7,6 @@ import src as sc
 # print(sc.convert._char_array)
 
 
-print(temp := sc.genrate.array_generate(15))
-print(temp := sc.padding.pad_to_blocksize_PKCS(temp, 16))
+print(temp := sc.genrate.array_generate(16))
+print(temp := sc.padding.pad(temp, 16))
+print(sc.padding.pad_REMOVE(temp))

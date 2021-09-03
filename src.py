@@ -7,9 +7,6 @@ _char_array = string.ascii_uppercase + string.ascii_lowercase + string.digits + 
 
 
 class convert:
-    # _char_array = string.ascii_uppercase + string.ascii_lowercase + string.digits + "-_"
-    # = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
-
     @staticmethod
     def string_to_b64(string1):
         """
@@ -69,37 +66,22 @@ class convert:
 
 class padding:
     @staticmethod
-    def pad_with(array1, padder, amount):
-        """
-        appeds a array of lenght (amount) filled with (padder) to (array1)
-        """
-        temp = [padder for _ in range(amount)]
-        array1 = np.append(array1, temp)
-        return array1
-
-    @staticmethod
-    def pad_with_DEL(array1, padder, amount):
-        # NOTE : add padding delete option
-        pass
-
-    @staticmethod
-    def pad_to_blocksize(array1, padder, amount):
-        """
-        (array1) is appended with (padder) until its lenght is multiple of (amount)
-        """
-        topad = amount - (len(array1) % amount)
-        temp = [padder for _ in range(topad)]
-        array1 = np.append(array1, temp)
-        return array1
-
-    @staticmethod
-    def pad_to_blocksize_PKCS(array1, amount):
+    def pad(array1, amount):
         """
         (array1) is appended with (padder) until its lenght is multiple of (amount)
         """
         topad = amount - (len(array1) % amount)
         temp = [topad for _ in range(topad)]
         array1 = np.append(array1, temp)
+        return array1
+
+    @staticmethod
+    def pad_REMOVE(array1):
+        """
+        removes the padding from (array1)
+        """
+        to_trim = array1[-1]
+        array1 = array1[:-to_trim]
         return array1
 
 
