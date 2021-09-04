@@ -13,12 +13,15 @@ class convert:
         converts input string to URL-Safe Base64 encoded string.
 
         Args:
+        ----------
             string1:(str) enter string that needs to be encoded in b64
 
         Returns:
+        ----------
             (str): string encoded in b64format without padding.
 
         Raises:
+        ----------
             TypeError: Invalid data type entered.
         """
         try:
@@ -36,12 +39,15 @@ class convert:
         converts only Base64 encoded string back UTF-8 encoded string.
 
         Args:
+        ----------
             string1:(str)string encoded in b64format.
 
         Returns:
+        ----------
             (str): string encoded in UTF-8
 
         Raises:
+        ----------
             TypeError: Invalid data type entered.
             UnicodeDecodeError: Invalid String provide for decode
         """
@@ -66,9 +72,11 @@ class convert:
         converts base64 string to int array with value range 0-63
 
         Args:
+        ----------
             string1:(str)string encoded in b64format.
 
         Returns:
+        ----------
             (numpy.array[uint8]): array with its element value range in {0,63}.(B64 encoded)
         """
         string1 = convert.string_to_b64(string1)
@@ -83,9 +91,11 @@ class convert:
         converts int array with value range 0-63 back to UTF-8 string
 
         Args:
+        ----------
             array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
 
         Returns:
+        ----------
             (str): base64 encoded string without padding
         """
         string1 = ""
@@ -102,10 +112,12 @@ class padding:
         padd's the array in PKCS standard to lenght specified by user
 
         Args:
+        ----------
             array1:(numpy.array[uint8])array with element value range in {0,63}.(B64 encoded)
             amount:(int) the block size
 
         Returns:
+        ----------
             (numpy.array[uint8]): array with PKCS style padding
 
         """
@@ -120,9 +132,11 @@ class padding:
         removes the padding from the array
 
         Args:
+        ----------
             array1:(numpy.array[uint8])the padded array of which the padding is to be removed
 
         Returns:
+        ----------
             (numpy.array[uint8]): array without the padding
         """
         to_trim = array1[-1]
@@ -137,13 +151,16 @@ class process:
         performs XOR between two arrays of same lengh
 
         Args:
+        ----------
             array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
             array2:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
 
         Returns:
+        ----------
             (numpy.array[uint8]): array with element value range in {0,63}.(B64 encoded)
 
         Raises:
+        ----------
             Error: Invalid lengths of array entered.
         """
         if len(array1) == len(array2):
@@ -157,13 +174,16 @@ class process:
         performs ADD between (array1,array2) of same lengh with (mod 64)
 
         Args:
+        ----------
             array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
             array2:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
 
         Returns:
+        ----------
             (numpy.array[uint8]): array with element value range in {0,63}.(B64 encoded)
 
         Raises:
+        ----------
             Error: Invalid lengths of array entered.
         """
         if len(array1) == len(array2):
@@ -177,6 +197,7 @@ class process:
         performs shift operation on array in left or right direction by specified amount
 
         Args:
+        ----------
             array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
             amount:(int) the shift amount
             direction:(str):
@@ -184,6 +205,7 @@ class process:
                 - "r" for right shift
 
         Returns:
+        ----------
             (numpy.array[uint8]): array with its element shifted
         """
         if direction == "l":
@@ -197,10 +219,12 @@ class process:
         performs substititution on the array with reference from sbox array
 
         Args:
+        ----------
             array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
             sbox:(numpy.array[uint8]) array with all unique values between {0,sbox.size-1} in random order
 
         Returns:
+        ----------
             (numpy.array[uint8]): array with substituted values as per sbox
         """
         for temp in range(len(array1)):
@@ -213,10 +237,12 @@ class process:
         performs permutation on the array with reference from pbox array
 
         Args:
+        ----------
             array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
             pbox:(numpy.array[uint8]) array with all unique values between {0,sbox.size-1} in random order
 
         Returns:
+        ----------
             (numpy.array[uint8]): array with permuted values as per pbox
         """
         array2 = [0 for _ in range(len(pbox))]
@@ -230,12 +256,15 @@ class process:
         swaps the two half in the array
 
         Args:
+        ----------
             array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
 
         Returns:
+        ----------
             array1:(numpy.array[uint8]) array with the two halves of it swaped
 
         Raises:
+        ----------
             Error: Invalud size of array for swaping entered.
         """
         if len(array1) % 2 == 0:
@@ -252,12 +281,15 @@ class genrate:
         generates an array of size mentioned with elements from {0,size-1} in random order
 
         Args:
+        ----------
             size:(int) the size of box required.
 
         Returns:
+        ----------
             (numpy.array[uint8]): array with all unique values in range {0,size-1} in random arrangement
 
         Note:
+        ----------
             used for generating s_box or p_box arrays
         """
         array = np.arange(size, dtype=np.uint8)
@@ -272,9 +304,11 @@ class genrate:
         generates a string of mentiond size with random base64 characters
 
         Args:
+        ----------
             size:(int) the size of box required.
 
         Returns:
+        ----------
             (str): string with random characters from B64 character list
         """
         string = "".join(secrets.choice(_char_array) for _ in range(size))
@@ -286,9 +320,11 @@ class genrate:
         generates a numpy array of lenght (size) with value between {0,63}
 
         Args:
+        ----------
             size:(int) the size of box required.
 
         Returns:
+        ----------
             (numpy.array[uint8]) array with random elements with value in range {0,63}
         """
         array = [secrets.randbelow(63) for _ in range(size)]
