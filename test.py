@@ -7,6 +7,8 @@ import src as sc
 # print(sc.convert._char_array)
 
 
-print(temp := sc.genrate.array_generate(16))
-print(temp := sc.padding.pad(temp, 16))
-print(sc.padding.pad_REMOVE(temp))
+print(temp := sc.genrate.array_generate(5))
+temp2, temp3 = sc.genrate.box_generate(5)
+# print(temp2, temp3)
+print(temp := sc.process.p_box(temp, temp2))
+print(temp := sc.process.p_box(temp, temp3))

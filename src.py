@@ -8,7 +8,17 @@ Provides
     3.instead of operating on a single bit this edition works in B64 style (instead of {0 OR 1} its {0,....,63} values per element)
     4.Provides easy encoding conversion,S&P Box generation,and many more
 
-
+Available subpackages
+---------------------
+convert
+    consists of various datatype and encoding conversion functions
+padding
+    consists of array padding and removing function .works in PKCS style
+process
+    consists of general cryptography related math functions
+generate
+    consists of tools to generate string,arrays and S&P Box generators.
+    With Cryptographically secure methods.
 """
 
 
@@ -301,6 +311,7 @@ class genrate:
         Returns:
         ----------
             (numpy.array[uint32]): array with all unique values in range {0,size-1} in random arrangement
+            (numpy.array[uint32]): array with all unique values in range {0,size-1}. its the inverse of the random arrangement above
 
         Note:
         ----------
@@ -310,7 +321,12 @@ class genrate:
         for temp in range(size):
             thern = secrets.randbelow(size)
             array[temp], array[thern] = array[thern], array[temp]
-        return array
+
+        array2 = np.zeros(size, dtype=np.uint32)
+        for temp in range(size):
+            array2[array[temp]] = temp
+
+        return array, array2
 
     @staticmethod
     def string_generate(size):
