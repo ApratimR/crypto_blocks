@@ -1,3 +1,17 @@
+"""
+Crypto Blocks(B64 Edition)
+===
+
+Provides
+    1.Various general functions required for creating your own Cryptographic algorithm.
+    2.Functions are Classified into classes for ease of use.
+    3.instead of operating on a single bit this edition works in B64 style (instead of {0 OR 1} its {0,....,63} values per element)
+    4.Provides easy encoding conversion,S&P Box generation,and many more
+
+
+"""
+
+
 import numpy as np
 import secrets
 import string
@@ -77,10 +91,10 @@ class convert:
 
         Returns:
         ----------
-            (numpy.array[uint8]): array with its element value range in {0,63}.(B64 encoded)
+            (numpy.array[uint32]): array with its element value range in {0,63}.(B64 encoded)
         """
         string1 = convert.string_to_b64(string1)
-        array1 = np.zeros((len(string1)), dtype=np.uint8)
+        array1 = np.zeros((len(string1)), dtype=np.uint32)
         for temp in range(len(string1)):
             array1[temp] = _char_array.index(string1[temp])
         return array1
@@ -92,7 +106,7 @@ class convert:
 
         Args:
         ----------
-            array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
+            array1:(numpy.array[uint32]) array with element value range in {0,63}.(B64 encoded)
 
         Returns:
         ----------
@@ -113,12 +127,12 @@ class padding:
 
         Args:
         ----------
-            array1:(numpy.array[uint8])array with element value range in {0,63}.(B64 encoded)
+            array1:(numpy.array[uint32])array with element value range in {0,63}.(B64 encoded)
             amount:(int) the block size
 
         Returns:
         ----------
-            (numpy.array[uint8]): array with PKCS style padding
+            (numpy.array[uint32]): array with PKCS style padding
 
         """
         topad = amount - (len(array1) % amount)
@@ -133,11 +147,11 @@ class padding:
 
         Args:
         ----------
-            array1:(numpy.array[uint8])the padded array of which the padding is to be removed
+            array1:(numpy.array[uint32])the padded array of which the padding is to be removed
 
         Returns:
         ----------
-            (numpy.array[uint8]): array without the padding
+            (numpy.array[uint32]): array without the padding
         """
         to_trim = array1[-1]
         array1 = array1[:-to_trim]
@@ -152,12 +166,12 @@ class process:
 
         Args:
         ----------
-            array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
-            array2:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
+            array1:(numpy.array[uint32]) array with element value range in {0,63}.(B64 encoded)
+            array2:(numpy.array[uint32]) array with element value range in {0,63}.(B64 encoded)
 
         Returns:
         ----------
-            (numpy.array[uint8]): array with element value range in {0,63}.(B64 encoded)
+            (numpy.array[uint32]): array with element value range in {0,63}.(B64 encoded)
 
         Raises:
         ----------
@@ -175,12 +189,12 @@ class process:
 
         Args:
         ----------
-            array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
-            array2:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
+            array1:(numpy.array[uint32]) array with element value range in {0,63}.(B64 encoded)
+            array2:(numpy.array[uint32]) array with element value range in {0,63}.(B64 encoded)
 
         Returns:
         ----------
-            (numpy.array[uint8]): array with element value range in {0,63}.(B64 encoded)
+            (numpy.array[uint32]): array with element value range in {0,63}.(B64 encoded)
 
         Raises:
         ----------
@@ -198,7 +212,7 @@ class process:
 
         Args:
         ----------
-            array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
+            array1:(numpy.array[uint32]) array with element value range in {0,63}.(B64 encoded)
             amount:(int) the shift amount
             direction:(str):
                 - "l" for left shift
@@ -206,7 +220,7 @@ class process:
 
         Returns:
         ----------
-            (numpy.array[uint8]): array with its element shifted
+            (numpy.array[uint32]): array with its element shifted
         """
         if direction == "l":
             return np.roll(array1, -amount)
@@ -220,12 +234,12 @@ class process:
 
         Args:
         ----------
-            array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
-            sbox:(numpy.array[uint8]) array with all unique values between {0,sbox.size-1} in random order
+            array1:(numpy.array[uint32]) array with element value range in {0,63}.(B64 encoded)
+            sbox:(numpy.array[uint32]) array with all unique values between {0,sbox.size-1} in random order
 
         Returns:
         ----------
-            (numpy.array[uint8]): array with substituted values as per sbox
+            (numpy.array[uint32]): array with substituted values as per sbox
         """
         for temp in range(len(array1)):
             array1[temp] = sbox[array1[temp]]
@@ -238,12 +252,12 @@ class process:
 
         Args:
         ----------
-            array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
-            pbox:(numpy.array[uint8]) array with all unique values between {0,sbox.size-1} in random order
+            array1:(numpy.array[uint32]) array with element value range in {0,63}.(B64 encoded)
+            pbox:(numpy.array[uint32]) array with all unique values between {0,sbox.size-1} in random order
 
         Returns:
         ----------
-            (numpy.array[uint8]): array with permuted values as per pbox
+            (numpy.array[uint32]): array with permuted values as per pbox
         """
         array2 = [0 for _ in range(len(pbox))]
         for temp in range(len(array1)):
@@ -251,17 +265,17 @@ class process:
         return array2
 
     @staticmethod
-    def swap(array1):
+    def swap_half(array1):
         """
         swaps the two half in the array
 
         Args:
         ----------
-            array1:(numpy.array[uint8]) array with element value range in {0,63}.(B64 encoded)
+            array1:(numpy.array[uint32]) array with element value range in {0,63}.(B64 encoded)
 
         Returns:
         ----------
-            array1:(numpy.array[uint8]) array with the two halves of it swaped
+            array1:(numpy.array[uint32]) array with the two halves of it swaped
 
         Raises:
         ----------
@@ -286,13 +300,13 @@ class genrate:
 
         Returns:
         ----------
-            (numpy.array[uint8]): array with all unique values in range {0,size-1} in random arrangement
+            (numpy.array[uint32]): array with all unique values in range {0,size-1} in random arrangement
 
         Note:
         ----------
             used for generating s_box or p_box arrays
         """
-        array = np.arange(size, dtype=np.uint8)
+        array = np.arange(size, dtype=np.uint32)
         for temp in range(size):
             thern = secrets.randbelow(size)
             array[temp], array[thern] = array[thern], array[temp]
@@ -325,7 +339,7 @@ class genrate:
 
         Returns:
         ----------
-            (numpy.array[uint8]) array with random elements with value in range {0,63}
+            (numpy.array[uint32]) array with random elements with value in range {0,63}
         """
         array = [secrets.randbelow(63) for _ in range(size)]
         return array
