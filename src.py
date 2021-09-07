@@ -11,11 +11,11 @@ Provides
 Available subpackages
 ---------------------
 convert
-    consists of various datatype and encoding conversion functions
+    consists of various datatype and encoding conversion functions.
 padding
-    consists of array padding and removing function .works in PKCS style
+    consists of array padding and removing function. works in PKCS style.
 process
-    consists of general cryptography related math functions
+    consists of general cryptography related math functions.
 generate
     consists of tools to generate string,arrays and S&P Box generators.
     With Cryptographically secure methods.
@@ -93,7 +93,7 @@ class convert:
     @staticmethod
     def string_to_array(string1):
         """
-        converts base64 string to int array with value range 0-63
+        converts base64 string to int array with value range 0-63.
 
         Args:
         ----------
@@ -112,7 +112,7 @@ class convert:
     @staticmethod
     def array_to_string(array1):
         """
-        converts int array with value range 0-63 back to UTF-8 string
+        converts int array with value range 0-63 back to UTF-8 string.
 
         Args:
         ----------
@@ -133,7 +133,7 @@ class padding:
     @staticmethod
     def pad(array1, amount):
         """
-        padd's the array in PKCS standard to lenght specified by user
+        padd's the array in PKCS standard to lenght specified by user.
 
         Args:
         ----------
@@ -153,7 +153,7 @@ class padding:
     @staticmethod
     def pad_REMOVE(array1):
         """
-        removes the padding from the array
+        removes the padding from the array.
 
         Args:
         ----------
@@ -172,7 +172,7 @@ class process:
     @staticmethod
     def XOR_array(array1, array2):
         """
-        performs XOR between two arrays of same lengh
+        performs XOR between two arrays of same length.
 
         Args:
         ----------
@@ -195,7 +195,7 @@ class process:
     @staticmethod
     def ADD_array(array1, array2):
         """
-        performs ADD between (array1,array2) of same lengh with (mod 64)
+        performs ADD between (array1,array2) of same lengh with (mod 64).
 
         Args:
         ----------
@@ -218,7 +218,7 @@ class process:
     @staticmethod
     def shift(array1, amount, direction):
         """
-        performs shift operation on array in left or right direction by specified amount
+        performs shift operation on array in left or right direction by specified amount.
 
         Args:
         ----------
@@ -240,7 +240,7 @@ class process:
     @staticmethod
     def s_box(array1, sbox):
         """
-        performs substititution on the array with reference from sbox array
+        performs substititution on the array with reference from sbox array.
 
         Args:
         ----------
@@ -258,7 +258,7 @@ class process:
     @staticmethod
     def p_box(array1, pbox):
         """
-        performs permutation on the array with reference from pbox array
+        performs permutation on the array with reference from pbox array.
 
         Args:
         ----------
@@ -277,7 +277,7 @@ class process:
     @staticmethod
     def swap_half(array1):
         """
-        swaps the two half in the array
+        swaps the two half in the array.
 
         Args:
         ----------
@@ -302,7 +302,7 @@ class genrate:
     @staticmethod
     def box_generate(size):
         """
-        generates an array of size mentioned with elements from {0,size-1} in random order
+        generates an array of size mentioned with elements from {0,size-1} in random order and also returns its inverse.
 
         Args:
         ----------
@@ -331,7 +331,7 @@ class genrate:
     @staticmethod
     def string_generate(size):
         """
-        generates a string of mentiond size with random base64 characters
+        generates a string of mentiond size with random base64 characters.
 
         Args:
         ----------
@@ -347,7 +347,7 @@ class genrate:
     @staticmethod
     def array_generate(size):
         """
-        generates a numpy array of lenght (size) with value between {0,63}
+        generates a numpy array of lenght (size) with value between {0,63}.
 
         Args:
         ----------
