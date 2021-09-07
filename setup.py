@@ -8,7 +8,7 @@ def readme():
 
 setuptools.setup(
     name="cryptoblocks64",
-    version="0.0.2",
+    version="0.0.3",
     author="Apratim Ray",
     author_email="apratimr55@gmail.com",
     description="A collection of common cryptography related functions but in B64 operation format",
@@ -24,6 +24,6 @@ setuptools.setup(
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="cryptoblocks64"),
     py_modules=["cryptoblocks64"],
-    install_requires=["numpy", "secrets", "base64", "string"],
+    install_requires=["numpy"],
     python_requires=">=3.6",
 )
