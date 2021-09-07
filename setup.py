@@ -8,7 +8,7 @@ def readme():
 
 setuptools.setup(
     name="cryptoblocks64",
-    version="0.0.1",
+    version="0.0.2",
     author="Apratim Ray",
     author_email="apratimr55@gmail.com",
     description="A collection of common cryptography related functions but in B64 operation format",

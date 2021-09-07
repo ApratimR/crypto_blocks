@@ -1,6 +1,10 @@
 # <img src="logo/CB64.svg" height=80>
 Crypto Blocks is a simple package that consists of various fundamental functions for building cryptogaphic algorithms.
 
+To Install
+---
+Just use `pip install cryptoblocks64` to install.
+
 ### It provides:
 
 * Various general functions required for creating your own Cryptographic algorithm.
