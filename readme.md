@@ -1,4 +1,4 @@
-# <img src="CB64.svg" height=70>
+# <img src="logo/CB64.svg" height=80>
 Crypto Blocks is a simple package that consists of various fundamental functions for building cryptogaphic algorithms.
 
 ### It provides:
