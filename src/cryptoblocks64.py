@@ -256,6 +256,29 @@ class process:
         return array1
 
     @staticmethod
+    def s_box_inverse(array1, sbox):
+        """
+        performs reverse substititution (used during decryption) on the array with reference from sbox array.
+
+        Args:
+        ----------
+            array1:(numpy.array[uint32]) array with element value range in {0,63}.(B64 encoded)
+            sbox:(numpy.array[uint32]) array with all unique values between {0,sbox.size-1} in random order
+
+        Returns:
+        ----------
+            (numpy.array[uint32]): array with reverse substituted values as per sbox
+        """
+
+        sbox2 = np.zeros(len(sbox), dtype=np.uint32)
+        for temp in range(len(sbox)):
+            sbox2[sbox[temp]] = temp
+
+        for temp in range(len(array1)):
+            array1[temp] = sbox2[array1[temp]]
+        return array1
+
+    @staticmethod
     def p_box(array1, pbox):
         """
         performs permutation on the array with reference from pbox array.
@@ -272,6 +295,30 @@ class process:
         array2 = [0 for _ in range(len(pbox))]
         for temp in range(len(array1)):
             array2[pbox[temp]] = array1[temp]
+        return array2
+
+    @staticmethod
+    def p_box_inverse(array1, pbox):
+        """
+        performs reverse permutation(used during decryption) on the array with reference from pbox array.
+
+        Args:
+        ----------
+            array1:(numpy.array[uint32]) array with element value range in {0,63}.(B64 encoded)
+            pbox:(numpy.array[uint32]) array with all unique values between {0,sbox.size-1} in random order
+
+        Returns:
+        ----------
+            (numpy.array[uint32]): array with permuted values as per pbox
+        """
+
+        pbox2 = np.zeros(len(pbox), dtype=np.uint32)
+        for temp in range(len(pbox)):
+            pbox2[pbox[temp]] = temp
+
+        array2 = [0 for _ in range(len(pbox))]
+        for temp in range(len(array1)):
+            array2[pbox2[temp]] = array1[temp]
         return array2
 
     @staticmethod
