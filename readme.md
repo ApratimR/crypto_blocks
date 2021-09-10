@@ -48,8 +48,10 @@ consists of general cryptography related math functions.
 |ADD_array|performs ADD between (array1,array2) of same lengh with (mod 64).|`ADD_of_arrays = cb.process.ADD_array(array1,array2)`|
 |shift|performs shift operation on array in left or right direction by specified amount.|`shifted_array = cb.process.shift(array1,shiftamount,direction)`|
 |s_box|performs substititution on the array with reference from sbox array.|`substituted_array = cb.process.s_box(array1,s_box)`|
+|s_box_inverse|performs inverse substititution on the array with reference from sbox array.Used in decryption|`inverse_substituted_array = cb.process.s_box_inverse(array1,s_box)`|
 |p_box|performs permutation on the array with reference from pbox array.|`permutated_array = cb.process.p_box(array1,p_box)`|
-|swap_half|swaps the two half in the array (use `shift` if you want to swat at custom position).|`swapped_array = cb.process.swap_half(array1)`|
+|p_box_inverse|performs inverse permutation on the array with reference from pbox array.Used in decryption|`inverse_permutated_array = cb.process.p_box_inverse(array1,p_box)`|
+|swap_half|swaps the two half in the array (use `shift` if you want to swap at custom position).|`swapped_array = cb.process.swap_half(array1)`|
 
 ### **Gnerate:**
 consists of tools to generate string,arrays and S&P Box generators with cryptographically secure methods.
