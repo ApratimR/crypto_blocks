@@ -53,7 +53,7 @@ consists of general cryptography related math functions.
 |p_box_inverse|performs inverse permutation on the array with reference from pbox array.Used in decryption|`inverse_permutated_array = cb.process.p_box_inverse(array1,p_box)`|
 |swap_half|swaps the two half in the array (use `shift` if you want to swap at custom position).|`swapped_array = cb.process.swap_half(array1)`|
 
-### **Gnerate:**
+### **Generate:**
 consists of tools to generate string,arrays and S&P Box generators with cryptographically secure methods.
 
 | function | description | code example |
